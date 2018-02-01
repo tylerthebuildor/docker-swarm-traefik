@@ -2,6 +2,11 @@
 
 script=${1}
 filename=${2:-dev}
+option=${3}
+
+docker_cloud_username="quangoinc"
+docker_cloud_reponame="quangosite-docker-traefik"
+docker_cloud_swarm_name="traefik"
 
 if [ -z $script ] ; then
   echo "please enter a command after ./ops"
@@ -17,5 +22,22 @@ elif [ $script == "stop" ] ; then
 elif [ $script == "build" ] ; then
   echo "building $filename"
   docker-compose -f ./$filename.yml build
+
+elif [ $script == "ship" ] ; then
+  echo "shipping $filename"
+  if [ "$filename" == "dev" ] ; then
+    echo "Woops! don't try and ship $filename"
+    exit
+  elif [ "$filename" == "stage" ] ; then
+    docker pull quangoinc/quango-docker-traefik
+  elif [ "$filename" == "prod" ] ; then
+    docker pull quangoinc/quango-docker-traefik
+  elif [ $filename == "manager" ] ; then
+    docker network create --driver overlay proxy
+  fi
+
+  docker stack deploy \
+    --compose-file="$filename.yml" \
+    --with-registry-auth $docker_cloud_swarm_name
 
 fi
