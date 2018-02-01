@@ -1,0 +1,21 @@
+#!/bin/bash
+
+script=${1}
+filename=${2:-dev}
+
+if [ -z $script ] ; then
+  echo "please enter a command after ./ops"
+
+elif [ $script == "start" ] ; then
+  echo "starting $filename"
+  docker-compose -f ./$filename.yml up
+
+elif [ $script == "stop" ] ; then
+  echo "stopping $filename"
+  docker-compose -f ./$filename.yml down
+
+elif [ $script == "build" ] ; then
+  echo "building $filename"
+  docker-compose -f ./$filename.yml build
+
+fi

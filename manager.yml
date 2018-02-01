@@ -1,0 +1,37 @@
+version: '3.3'
+
+networks:
+  proxy:
+    external: true
+
+configs:
+  traefik.toml:
+    file: ./docker/traefik.toml
+
+services:
+
+  traefik:
+    image: traefik:1.2.3-alpine
+    command: --web \
+      --docker \
+      --docker.swarmmode \
+      --docker.watch \
+      --docker.domain=traefik \
+      --logLevel=DEBUG
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    configs:
+      - source: traefik.toml
+        target: /etc/traefik/traefik.toml
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - proxy
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]                                            

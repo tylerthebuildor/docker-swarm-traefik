@@ -1,0 +1,7 @@
+version: "3.2"
+services:
+  site:
+    build: ./site
+    command: nodejs index.js
+    ports:
+      - "3000:80"

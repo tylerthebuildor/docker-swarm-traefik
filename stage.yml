@@ -1,0 +1,36 @@
+version: "3.2"
+
+networks:
+  default:
+    external: false
+  proxy:
+    external: true
+
+services:
+
+  site:
+    build: ./site
+    command: nodejs index.js
+    ports:
+      - "3000:3001"
+    networks:
+      - proxy
+      - default
+    # deploy:
+    #   replicas: 1
+    #   labels:
+    #   - "traefik.frontend.rule=PathPrefix:/"
+    #   - "traefik.backend=traefik"
+    #   - "traefik.port=3001"
+    #   - "traefik.enable=true"
+    #   - "traefik.passHostHeader=true"
+    #   - "traefik.docker.network=proxy"
+    #   - "traefik.frontend.entryPoints=http,https"
+    #   - "traefik.backend.loadbalancer.swarm=true"
+    #   - "traefik.backend.loadbalancer.method=drr"
+    #   - "traefik.acme=true"
+    - "traefik.port=3000"
+    - "traefik.backend=site"
+    - "traefik.protocol=http"
+    - "traefik.frontend.entryPoints=http"
+    - "traefik.frontend.rule=Host:traefik.quaungostaging.com"

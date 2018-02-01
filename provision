@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+# Must fill these values out for the script to work
+# droplet_name="quangoinc.com"
+droplet_name="traefik.quangostaging.com"
+digitalocean_access_token=""
+
+# For more info check out:
+# Dockers Machine Digital Ocean driver: https://docs.docker.com/machine/drivers/digital-ocean/#options
+# Docker Swarm: https://docs.docker.com/engine/swarm/
+
+# Create droplet
+docker-machine create \
+  --driver digitalocean \
+  --digitalocean-access-token $digitalocean_access_token \
+  --digitalocean-region sfo1 \
+  --digitalocean-size 1gb \
+  $droplet_name
+
+# Add local SSH key to remote authorized_keys (optional)
+cat ~/.ssh/id_rsa.pub | (docker-machine ssh $droplet_name "cat >> ~/.ssh/authorized_keys")
+docker-machine ssh $droplet_name "cat ~/.ssh/authorized_keys"
+
+# Initialize Swarm
+ip=$(docker-machine ip $droplet_name)
+docker-machine ssh $droplet_name "docker swarm init --advertise-addr $ip"
+
+# Register Swarm to Docker Cloud
+docker-machine ssh $droplet_name "docker run -i --rm -v /var/run/docker.sock:/var/run/docker.sock dockercloud/registration"
