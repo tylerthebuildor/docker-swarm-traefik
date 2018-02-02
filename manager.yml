@@ -12,12 +12,12 @@ services:
 
   traefik:
     image: traefik
-    command: --web \
-      --docker \
-      --docker.swarmmode \
-      --docker.watch \
-      --docker.domain=traefik \
-      --logLevel=DEBUG
+    # command: --web \
+    #   --docker \
+    #   --docker.watch \
+    #   --docker.swarmmode \
+    #   --docker.domain=traefik \
+    #   --logLevel=DEBUG
     ports:
       - "80:80"
       - "8080:8080"
@@ -27,7 +27,7 @@ services:
       # - /dev/null:/traefik.toml
     configs:
       - source: traefik.toml
-        target: /etc/traefik/traefik.toml
+        target: /traefik.toml
     labels:
       - "traefik.enable=false"
     networks:

@@ -4,7 +4,7 @@ set -e
 # Must fill these values out for the script to work
 # droplet_name="quangoinc.com"
 droplet_name="traefik.quangostaging.com"
-digitalocean_access_token=""
+digitalocean_access_token="ebc904f09e6eb44f106a3c49883877076b5d5f43a042235e1fd1a0bb71211543"
 
 # For more info check out:
 # Dockers Machine Digital Ocean driver: https://docs.docker.com/machine/drivers/digital-ocean/#options
@@ -28,3 +28,13 @@ docker-machine ssh $droplet_name "docker swarm init --advertise-addr $ip"
 
 # Register Swarm to Docker Cloud
 docker-machine ssh $droplet_name "docker run -i --rm -v /var/run/docker.sock:/var/run/docker.sock dockercloud/registration"
+
+# curl -X POST \
+#   -H "Content-Type: application/json" \
+#   -H "Authorization: Bearer b7d03a6947b217efb6f3ec3bd3504582" \
+#   -d '{"type":"A","name":"www","data":"162.10.66.0","ttl":1800}' "https://api.digitalocean.com/v2/domains/example.com/records" 
+
+# curl -X PUT \
+#   -H "Content-Type: application/json" \
+#   -H "Authorization: Bearer b7d03a6947b217efb6f3ec3bd3504582" \
+#   -d '{"name":"blog"}' "https://api.digitalocean.com/v2/domains/example.com/records/3352896" 

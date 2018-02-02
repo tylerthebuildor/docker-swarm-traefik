@@ -4,11 +4,11 @@ const app = new http.Server();
 
 app.on('request', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  console.log('I AM RESPONDINGGGG!');
-  res.write('I AM RESPONDINGGGG!');
+  console.log('I AM RESPONDING!');
+  res.write('I AM RESPONDING!');
   res.end('\n');
 });
 
 app.listen(port, () => {
-  console.log('I AM RUNNNIG!');
+  console.log('I AM RUNNING!');
 });

@@ -1,31 +1,30 @@
-logLevel = "WARN"
-defaultEntryPoints = ["http"]
+logLevel = "DEBUG"
 # defaultEntryPoints = ["http", "https"]
 
-[entryPoints]
- [entryPoints.http]
- address = ":80"
- compress = false
-   [entryPoints.http.redirect]
-      entryPoint = "https"
-  [entryPoints.https]
-  address = ":443"
-    [entryPoints.https.tls]
-
-[acme]
-email = "webmaster@qaungoinc.com"
-storage = "acme.json"
-entryPoint = "https"
-onHostRule = true
-onDemand = true
-
-# [[acme.domains]]
-#  main = "traefik.quangostaging.com"
-
-# [web]
+[web]
 # address = ":8080"
 
-# [docker]
-# domain = "traefik.quangostaging.com"
-# watch = true
-# swarmmode = true
+# [entryPoints]
+#   [entryPoints.http]
+#   address = ":80"
+#   [entryPoints.https]
+#   address = ":443"
+#     [entryPoints.https.tls]
+
+# [acme]
+# email = "webmaster@quangoinc.com"
+# storageFile = "acme.json"
+# entryPoint = "https"
+# onDemand = false
+# OnHostRule = true
+
+# [acme.httpChallenge]
+#   entryPoint = "http"
+
+# [acme.dnsChallenge]
+# provider = "digitalocean"
+
+[docker]
+domain = "traefik"
+watch = true
+swarmmode = true
