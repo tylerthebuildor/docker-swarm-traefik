@@ -11,7 +11,7 @@ services:
   site:
     build: ./site
     image: quangoinc/quango-docker-traefik
-    command: nodejs index.js
+    command: node index.js
     networks:
       - proxy
       - default

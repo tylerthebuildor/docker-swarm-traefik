@@ -4,4 +4,4 @@ services:
     build: ./site
     command: nodejs index.js
     ports:
-      - "3000:80"
+      - "3002:80"

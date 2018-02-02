@@ -24,10 +24,10 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /dev/null:/traefik.toml
-    # configs:
-    #   - source: traefik.toml
-    #     target: /etc/traefik/traefik.toml
+      # - /dev/null:/traefik.toml
+    configs:
+      - source: traefik.toml
+        target: /etc/traefik/traefik.toml
     labels:
       - "traefik.enable=false"
     networks:
