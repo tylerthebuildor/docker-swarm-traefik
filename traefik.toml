@@ -1,30 +1,25 @@
 logLevel = "DEBUG"
-# defaultEntryPoints = ["http", "https"]
+defaultEntryPoints = ["http", "https"]
 
 [web]
-# address = ":8080"
 
-# [entryPoints]
-#   [entryPoints.http]
-#   address = ":80"
-#   [entryPoints.https]
-#   address = ":443"
-#     [entryPoints.https.tls]
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
 
-# [acme]
-# email = "webmaster@quangoinc.com"
-# storageFile = "acme.json"
-# entryPoint = "https"
-# onDemand = false
-# OnHostRule = true
+[acme]
+  email = "webmaster@quangoinc.com"
+  storage = "acme.json"
+  entryPoint = "https"
+  OnHostRule = true
 
-# [acme.httpChallenge]
-#   entryPoint = "http"
-
-# [acme.dnsChallenge]
-# provider = "digitalocean"
+[acme.httpChallenge]
+  entryPoint = "http"
 
 [docker]
-domain = "traefik"
-watch = true
-swarmmode = true
+  domain = "traefik"
+  watch = true
+  swarmmode = true

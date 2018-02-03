@@ -4,7 +4,7 @@ set -e
 # Must fill these values out for the script to work
 # droplet_name="quangoinc.com"
 droplet_name="traefik.quangostaging.com"
-digitalocean_access_token="ebc904f09e6eb44f106a3c49883877076b5d5f43a042235e1fd1a0bb71211543"
+digitalocean_access_token=""
 
 # For more info check out:
 # Dockers Machine Digital Ocean driver: https://docs.docker.com/machine/drivers/digital-ocean/#options
